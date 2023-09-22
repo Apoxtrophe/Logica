@@ -56,6 +56,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 }
 
 func main() {
+	ebiten.SetTPS(ebiten.SyncWithFPS)
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Logica")
 	game := NewGame()
