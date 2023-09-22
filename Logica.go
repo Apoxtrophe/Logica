@@ -7,18 +7,18 @@ import (
 )
 
 const (
-	screenWidth = 800
+	screenWidth  = 800
 	screenHeight = 600
-	worldFactor = 10
+	worldFactor  = 10
 )
 
 var (
-	worldWidth = screenWidth / worldFactor
+	worldWidth  = screenWidth / worldFactor
 	worldHeight = screenHeight / worldFactor
 )
 
 // Game implements ebiten.Game interface.
-type Game struct{
+type Game struct {
 	array1 [][]int
 	array2 [][]int
 }
@@ -63,4 +63,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-

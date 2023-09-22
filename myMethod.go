@@ -1,9 +1,10 @@
 package main
 
 import (
-	"image/color"
-
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2"
+	"golang.org/x/image/colornames"
+	"fmt"
 )
 
 
@@ -19,17 +20,23 @@ func (g *Game) MouseInteract(){
 }
 
 func (g *Game) DrawArray(screen *ebiten.Image) {
-	white := color.RGBA{255,255,255,255}
-
 	pixelSize := ebiten.NewImage(worldFactor,worldFactor)
-	pixelSize.Fill(white)
+	pixelSize.Fill(colornames.Orange)
 	for x := 0; x < len(g.array1); x++ {
 		for y := 0; y < len(g.array1[x]); y++ {
-			if g.array1[x][y] == 1 {
+			element, exists := elementMap[g.array1[x][y]]
+			if exists {
+				pixelSize := ebiten.NewImage(worldFactor,worldFactor)
+				pixelSize.Fill(element.Color)
 				op := &ebiten.DrawImageOptions{}
 				op.GeoM.Translate(float64(x * worldFactor), float64(y * worldFactor))
-				screen.DrawImage(pixelSize, op)
+                screen.DrawImage(pixelSize, op)
 			}
 		}
 	}
+
+	//Debug ish
+	tps := ebiten.ActualTPS()
+	debugText := fmt.Sprintf("TPS: %0.2f", tps)
+	ebitenutil.DebugPrint(screen, debugText)
 }
