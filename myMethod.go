@@ -26,8 +26,7 @@ func (g *Game) DrawArray(screen *ebiten.Image) {
 		for y := 0; y < len(g.array1[x]); y++ {
 			element, exists := elementMap[g.array1[x][y]]
 			if exists {
-				pixelSize := ebiten.NewImage(worldFactor,worldFactor)
-				pixelSize.Fill(element.Color)
+				g.pixelImage.Fill(element.Color)
 				op := &ebiten.DrawImageOptions{}
 				op.GeoM.Translate(float64(x * worldFactor), float64(y * worldFactor))
                 screen.DrawImage(pixelSize, op)

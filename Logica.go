@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-
+	_ "net/http/pprof"
+    "net/http"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -21,6 +22,7 @@ var (
 type Game struct {
 	array1 [][]int
 	array2 [][]int
+	pixelImage *ebiten.Image
 }
 
 func NewGame() *Game {
@@ -31,6 +33,8 @@ func NewGame() *Game {
 		g.array1[i] = make([]int, worldHeight)
 		g.array2[i] = make([]int, worldHeight)
 	}
+	g.pixelImage = ebiten.NewImage(worldFactor, worldFactor)
+
 	return g
 }
 
@@ -56,7 +60,10 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 }
 
 func main() {
-	ebiten.SetTPS(ebiten.SyncWithFPS)
+	//ebiten.SetTPS(ebiten.SyncWithFPS)
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", nil))
+	}()
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Logica")
 	game := NewGame()
