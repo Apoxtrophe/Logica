@@ -2,8 +2,6 @@ package main
 
 import (
 	"log"
-	_ "net/http/pprof"
-    "net/http"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -61,9 +59,6 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 
 func main() {
 	//ebiten.SetTPS(ebiten.SyncWithFPS)
-	go func() {
-		log.Println(http.ListenAndServe("localhost:6060", nil))
-	}()
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Logica")
 	game := NewGame()
